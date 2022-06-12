@@ -67,8 +67,17 @@ body{
 .BotonDonar,.BotonSuscribirse{
     margin-top: 20px;
 }
+
+
+.abs-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+
 #pie{
-    background-color: #E4EFE7;
+    background-color: #B4E197;
     position: absolute;
     bottom: 0;
     width: 100%;
