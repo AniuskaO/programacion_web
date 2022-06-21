@@ -60,7 +60,7 @@
                 <button type="button" class="btn btn-warning">Editar</button>
               </div>
                 <div class="table-responsive">
-                    <table class="table table-striped">
+                    <table class="table table-striped" id="tablaVendedores">
                         <thead>
                         <tr>
                             <th scope="col">#</th>
@@ -104,9 +104,58 @@
 
 
 
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.min.js" integrity="sha384-VHvPCCyXqtD5DqJeNxl2dtTyhF78xXNXdkwX1CZeRusQfRKp+tA7hAShOK/B/fQ2" crossorigin="anonymous"></script>
+    
+    <script>
 
+    const API_URL = 'http://127.0.0.1:5000';
+
+    $(document).ready(function(){
+      $('#tablaVendedores tbody').empty();
+    
+      actualizarTabla()
+    });
+
+    function actualizarTabla(){
+        $('#tablaVendedores tbody').empty();
+
+        $.ajax({
+          url: API_URL+'/vendedores',
+          type: 'GET',
+          dataType: 'json',
+          success: function(respuesta){
+            console.log(respuesta);
+            for (var i = 0; i < respuesta.length; i++){
+                var fila = '<tr>' +
+                  '<th scope="row">' + respuesta[i].id_vendedor + '</th>' +
+                  '<td>' + respuesta[i].rut + '</td>' +
+                  '<td>' + respuesta[i].dv + '</td>' +
+                  '<td>' + respuesta[i].primer_nombre + '</td>' +
+                  '<td>' + respuesta[i].segundo_nombre + '</td>' +
+                  '<td>' + respuesta[i].primer_apellido + '</td>' +
+                  '<td>' + respuesta[i].segundo_apellido + '</td>' +
+                  '<td>' + respuesta[i].direccion + '</td>' +
+                  '<td>' + respuesta[i].fono + '</td>' +
+                  '<td>' + respuesta[i].correo + '</td>' +
+                  '<td>' + respuesta[i].estado + '</td>' +
+                  '<td>' + respuesta[i].comuna_id + '</td>' +
+                  '<td>' + respuesta[i].region_id + '</td>' +
+                  '<td>' +
+                '</tr>';
+
+                $('#tablaVendedores').append(fila)
+            }
+
+          
+          
+          }
+        })
+
+      }
+
+
+    </script>
   </body>
 </html>
