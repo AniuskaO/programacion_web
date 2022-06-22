@@ -46,6 +46,56 @@
 
         </ul>
     </nav>
+
+    <div class="row justify-content-md-center">
+      <div class="col-sm-6">
+        <div class="card" id="cardProducto">
+          <div class="card-body">
+            <h5 class="card-title text-center">Registro Productos</h5>
+
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label for="inputCodigo">Código</label>
+                  <input type="text" class="form-control" id="inputCodigo">
+                  <input type="text" class="form-control" id="inputId_Producto" hidden>
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="inputNombre">Nombre</label>
+                  <input type="text" class="form-control" id="inputNombre">
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label for="inputValorVenta">Valor Venta</label>
+                  <input type="number" class="form-control" id="inputValorVenta">
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="inputStock">Stock</label>
+                  <input type="number" class="form-control" id="inputStock">
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label for="inputDescripcion">Descripcion</label>
+                  <input type="text" class="form-control" id="inputDescripcion">
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="inputEstado">Estado</label>
+                  <input type="text" class="form-control" id="inputEstado">
+                </div>
+
+                <div class="btn" role="group" aria-label="Basic example">
+                  <button type="button" class="btn btn-success" id="AñadirProducto">Añadir</button>
+                  <button type="button" class="btn btn-warning" id="EditarProducto">Editar</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
    
     <div class="row mt-4">
         <div class="col-sm-12">
@@ -54,11 +104,6 @@
 
               <h5 class="card-title text-center">Listado de Productos</h5>
               <p>Cantidad de productos: 1</p>
-              <div class="btn-group" role="group" aria-label="Basic example">
-                <button type="button" class="btn btn-success">Añadir</button>
-                <button type="button" class="btn btn-danger">Elminar</button>
-                <button type="button" class="btn btn-warning">Editar</button>
-              </div>
                 <div class="table-responsive">
                     <table class="table table-striped" id="tablaProductos">
                         <thead>
@@ -71,6 +116,7 @@
                             <th scope="col">Descripción</th>
                             <th scope="col">Imagen</th>
                             <th scope="col">Estado</th>
+                            <th scope="col">Acciones</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -83,6 +129,12 @@
                             <td>Maceta verde</td>
                             <td></td>
                             <td>Disponible</td>
+                            <td>
+                              <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+                                <button type="button" class="btn btn-success btnEditarProducto">Editar</button>
+                                <button type="button" class="btn btn-danger btnEliminarProducto">Eliminar</button>
+                              </div>
+                            </td>
                         </tr>
                         </tbody>
                     </table>
@@ -103,7 +155,9 @@
 
     $(document).ready(function(){
       $('#tablaProductos tbody').empty();
-    
+      $('#EditarProducto').hide()
+
+      
       actualizarTabla()
     });
 
@@ -126,9 +180,16 @@
                   '<td>' + respuesta[i].descripcion + '</td>' +
                   '<td>' + respuesta[i].imagen + '</td>' +
                   '<td>' + respuesta[i].estado + '</td>' +
+                  '<td>' + 
+                    '<div class="btn-group btn-group-sm" role="group" aria-label="Basic example">' +
+                      '<button type="button" class="btn btn-success btnEditarProducto">Editar</button>' +
+                      '<button type="button" class="btn btn-danger btnEliminarProducto">Elminar</button>' +
+                    '</div>'
+                  '</td>' +
                 '</tr>';
 
                 $('#tablaProductos').append(fila)
+
             }
 
           
@@ -137,6 +198,139 @@
         })
 
       }
+
+      //añadir usuario a la lista con jquery
+      $(document).on('click', '#AñadirProducto', function(){
+        //obtener los datos del usuario
+        var codigo = $('#inputCodigo').val();
+        var nombre = $('#inputNombre').val();
+        var valor_venta = $('#inputValorVenta').val();
+        var stock = $('#inputStock').val();
+        var descripcion = $('#inputDescripcion').val();
+        var estado = $('#inputEstado').val();
+
+        //cargar a la db mediante ajax mi usuario
+        $.ajax({
+            url: API_URL+'/productos',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({
+              codigo: codigo,
+              nombre: nombre,
+              valor_venta: valor_venta,
+              stock: stock,
+              descripcion: descripcion, 
+              estado: estado
+            }),
+            success: function(respuesta){
+                console.log(respuesta);
+                actualizarTabla();
+                limpiarFormulario();
+            }
+        })
+
+      });
+
+
+      //click en .btnEditarusuario
+      $(document).on('click', '.btnEditarProducto', function(){
+        //obtener el id del usuario
+        var id_producto = $(this).closest('tr').find('th').text();
+        //obtener todo el usuario
+        var producto = $(this).closest('tr').find('td');
+        //obtener los datos del usuario
+        var codigo = producto.eq(0).text();
+        var nombre = producto.eq(1).text();
+        var valor_venta = producto.eq(2).text();
+        var stock = producto.eq(3).text();
+        var descripcion = producto.eq(4).text();
+        var estado = producto.eq(6).text();
+    
+
+        //mostrar los datos del usuario en los inputs
+        $('#inputCodigo').val(codigo);
+        $('#inputNombre').val(nombre);
+        $('#inputValorVenta').val(valor_venta);
+        $('#inputStock').val(stock);
+        $('#inputDescripcion').val(descripcion);
+        $('#inputEstado').val(estado);
+        $('#inputId_Producto').val(id_producto);
+
+        $('#AñadirProducto').hide();
+        $('#EditarProducto').show()
+
+      });
+
+      $(document).on('click', '#AñadirProducto', function(){
+        limpiarFormulario();
+      })
+
+      function limpiarFormulario(){
+        $('#inputCodigo').val('');
+        $('#inputNombre').val('');
+        $('#inputValorVenta').val('');
+        $('#inputStock').val('');
+        $('#inputDescripcion').val('');
+        $('#inputEstado').val('');
+      }
+
+
+      //editar usuario con ajax
+      $(document).on('click', '#EditarProducto', function(){
+        //obtener los datos del usuario
+        var codigo = $('#inputCodigo').val();
+        var nombre = $('#inputNombre').val();
+        var valor_venta = $('#inputValorVenta').val();
+        var stock = $('#inputStock').val();
+        var descripcion = $('#inputDescripcion').val();
+        var estado = $('#inputEstado').val();
+        var id_producto = $('#inputId_Producto').val();
+
+        $.ajax({
+            url: API_URL+'/productos/'+id_producto,
+            type: 'PUT',
+            contentType: 'application/json',
+            data: JSON.stringify({
+              codigo: codigo,
+              nombre: nombre,
+              valor_venta: valor_venta,
+              stock: stock,
+              descripcion: descripcion, 
+              estado: estado, 
+              id_producto: id_producto
+            }),
+            success: function(respuesta){
+                console.log('Producto Modificado');
+                actualizarTabla();
+                limpiarFormulario();
+            }
+        })
+
+      });
+
+      //borrar usuario de la lista con jquery
+      $(document).on('click', '.btnEliminarProducto', function(){
+        //eliminar la fila
+        var id_producto = $(this).closest('tr').find('th').text();
+
+        $.ajax({
+            url: API_URL+'/productos/'+id_producto,
+            type: 'DELETE',
+            dataType: 'json',
+            data: {
+              id_producto:id_producto
+            },
+            success: function(respuesta){
+                console.log('Producto Eliminado')
+                actualizarTabla()
+            }
+
+        })
+
+
+
+      });
+
     </script>
   </body>
 </html>

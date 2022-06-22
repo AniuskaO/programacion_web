@@ -8,6 +8,10 @@
     margin: 10px;
 }
 
+#cardProducto{
+  margin-top: 20px;
+}
+
 .show-cart li {
     display: flex;
   }
