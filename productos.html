@@ -257,7 +257,7 @@
         $('#inputId_Producto').val(id_producto);
 
         $('#AñadirProducto').hide();
-        $('#EditarProducto').show()
+        $('#EditarProducto').show();
 
       });
 
@@ -303,6 +303,8 @@
                 console.log('Producto Modificado');
                 actualizarTabla();
                 limpiarFormulario();
+                $('#EditarProducto').hide();
+                $('#AñadirProducto').show();
             }
         })
 

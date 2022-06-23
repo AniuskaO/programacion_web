@@ -50,7 +50,7 @@
 
     <div class="row justify-content-md-center">
       <div class="col-sm-6">
-        <div class="card">
+        <div class="card" id="cardVendedor">
           <div class="card-body">
             <h5 class="card-title text-center">Registro Vendedores</h5>
 
@@ -96,6 +96,7 @@
                 <label for="inputComuna">Comuna</label>
                 <input type="number" class="form-control" id="inputComuna">
               </div>
+              
             </div>
 
             <div class="form-row">
@@ -120,10 +121,9 @@
               </div>
             </div>
 
-              <div class="btn-group" role="group" aria-label="Basic example">
-                <button type="button" class="btn btn-success" id="AñdirVendedor">Añadir</button>
-                <button type="button" class="btn btn-danger">Elminar</button>
-                <button type="button" class="btn btn-warning">Editar</button>
+              <div class="btn" role="group" aria-label="Basic example">
+                <button type="button" class="btn btn-success" id="AñadirVendedor">Añadir</button>
+                <button type="button" class="btn btn-warning" id="EditarVendedor">Editar</button>
               
             </div>
           </div>
@@ -152,11 +152,12 @@
                             <th scope="col">Primer Apellido</th>
                             <th scope="col">Segundo Apellido</th>
                             <th scope="col">Dirección</th>
+                            <th scope="col">Comuna</th>
+                            <th scope="col">Region</th>
                             <th scope="col">Fono</th>
                             <th scope="col">Correo</th>
                             <th scope="col">Estado</th>
-                            <th scope="col">Comuna</th>
-                            <th scope="col">Region</th>
+                            <th scope="col">Acciones</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -218,12 +219,17 @@
                   '<td>' + respuesta[i].primer_apellido + '</td>' +
                   '<td>' + respuesta[i].segundo_apellido + '</td>' +
                   '<td>' + respuesta[i].direccion + '</td>' +
+                  '<td>' + respuesta[i].comuna_id + '</td>' +
+                  '<td>' + respuesta[i].region_id + '</td>' +
                   '<td>' + respuesta[i].fono + '</td>' +
                   '<td>' + respuesta[i].correo + '</td>' +
                   '<td>' + respuesta[i].estado + '</td>' +
-                  '<td>' + respuesta[i].comuna_id + '</td>' +
-                  '<td>' + respuesta[i].region_id + '</td>' +
-                  '<td>' +
+                  '<td>' + 
+                    '<div class="btn-group btn-group-sm" role="group" aria-label="Basic example">' +
+                      '<button type="button" class="btn btn-success btnEditarVendedor">Editar</button>' +
+                      '<button type="button" class="btn btn-danger btnEliminarVendedor">Elminar</button>' +
+                    '</div>'
+                  '</td>' +
                 '</tr>';
 
                 $('#tablaVendedores').append(fila)
@@ -237,7 +243,7 @@
       }
 
        //añadir usuario a la lista con jquery
-       $(document).on('click', '#AñdirVendedor', function(){
+       $(document).on('click', '#AñadirVendedor', function(){
         //obtener los datos del usuario
         var rut = $('#inputRut').val();
         var dv = $('#inputDv').val();
@@ -246,12 +252,13 @@
         var primer_apellido = $('#inputPrimerApellido').val();
         var segundo_apellido = $('#inputSegundoApellido').val();
         var direccion = $('#inputDireccion').val();
-        var fono = $('#inputComuna').val();
-        var correo = $('#inputRegion').val();
-        var estado = $('inputEstado').val();
-        var comuna_id = $('#inputFono').val();
-        var region_id = $('#inputCorreo').val();
+        var fono = $('#inputFono').val();
+        var correo = $('#inputCorreo').val();
+        var estado = $('#inputEstado').val();
+        var comuna_id = $('#inputComuna').val();
+        var region_id = $('#inputRegion').val();
         
+        limpiarFormulario();
 
         //cargar a la db mediante ajax mi usuario
         $.ajax({
@@ -276,10 +283,133 @@
             success: function(respuesta){
                 console.log(respuesta);
                 actualizarTabla();
+                limpiarFormulario();
             }
         })
 
       });
+
+      function limpiarFormulario(){
+        $('#inputRut').val('');
+        $('#inputDv').val('');
+        $('#inputPrimerNombre').val('');
+        $('#inputSegundoNombre').val('');
+        $('#inputPrimerApellido').val('');
+        $('#inputSegundoApellido').val('');
+        $('#inputDireccion').val('');
+        $('#inputFono').val('');
+        $('#inputCorreo').val('');
+        $('#inputEstado').val('');
+        $('#inputComuna').val('');
+        $('#inputRegion').val('');
+      }
+
+      //click en .btnEditarusuario
+      $(document).on('click', '.btnEditarVendedor', function(){
+        //obtener el id del usuario
+        var id_vendedor = $(this).closest('tr').find('th').text();
+        //obtener todo el usuario
+        var vendedor = $(this).closest('tr').find('td');
+        //obtener los datos del usuario
+        var rut = vendedor.eq(0).text();
+        var dv = vendedor.eq(1).text();
+        var primer_nombre = vendedor.eq(2).text();
+        var segundo_nombre = vendedor.eq(3).text();
+        var primer_apellido = vendedor.eq(4).text();
+        var segundo_apellido = vendedor.eq(5).text();
+        var direccion = vendedor.eq(6).text();
+        var fono = vendedor.eq(9).text();
+        var correo = vendedor.eq(10).text();
+        var estado = vendedor.eq(11).text();
+        var comuna_id = vendedor.eq(7).text();
+        var region_id = vendedor.eq(8).text();
+    
+
+        //mostrar los datos del usuario en los inputs
+        $('#inputRut').val(rut);
+        $('#inputDv').val(dv);
+        $('#inputPrimerNombre').val(primer_nombre);
+        $('#inputSegundoNombre').val(segundo_nombre);
+        $('#inputPrimerApellido').val(primer_apellido);
+        $('#inputSegundoApellido').val(segundo_apellido);
+        $('#inputDireccion').val(direccion);
+        $('#inputFono').val(fono);
+        $('#inputCorreo').val(correo);
+        $('#inputEstado').val(estado);
+        $('#inputComuna').val(comuna_id);
+        $('#inputRegion').val(region_id);
+
+        $('#AñadirVendedor').hide();
+        $('#EditarVendedor').show();
+
+      });
+
+
+      $(document).on('click', '#EditarVendedor', function(){
+        //obtener los datos del usuario
+        var rut = $('#inputRut').val();
+        var dv = $('#inputDv').val();
+        var primer_nombre = $('#inputPrimerNombre').val();
+        var segundo_nombre = $('#inputSegundoNombre').val();
+        var primer_apellido = $('#inputPrimerApellido').val();
+        var segundo_apellido = $('#inputSegundoApellido').val();
+        var direccion = $('#inputDireccion').val();
+        var fono = $('#inputFono').val();
+        var correo = $('#inputCorreo').val();
+        var estado = $('#inputEstado').val();
+        var comuna_id = $('#inputComuna').val();
+        var region_id = $('#inputRegion').val();
+        var id_vendedor = $('#inputId_Vendedor').val();
+
+        $.ajax({
+            url: API_URL+'/vendedores/'+id_vendedor,
+            type: 'PUT',
+            contentType: 'application/json',
+            data: JSON.stringify({
+              rut: rut,
+              dv: dv,
+              primer_nombre: primer_nombre,
+              segundo_nombre: segundo_nombre,
+              primer_apellido: primer_apellido, 
+              segundo_apellido: segundo_apellido,
+              direccion: direccion,
+              fono: fono,
+              correo: correo,
+              estado: estado,
+              comuna_id: comuna_id,
+              region_id: region_id,
+              id_vendedor: id_vendedor
+            }),
+            success: function(respuesta){
+                console.log('Vendedor Modificado');
+                actualizarTabla();
+                $('#EditarVendedor').hide();
+                $('#AñadirVendedor').show();
+            }
+        })
+
+      });
+
+      $(document).on('click', '.btnEliminarVendedor', function(){
+        //eliminar la fila
+        var id_vendedor = $(this).closest('tr').find('th').text();
+
+        $.ajax({
+            url: API_URL+'/vendedores/'+id_vendedor,
+            type: 'DELETE',
+            dataType: 'json',
+            data: {
+              id_vendedor:id_vendedor
+            },
+            success: function(respuesta){
+                console.log('Vendedor Eliminado')
+                actualizarTabla()
+            }
+
+        })
+
+      });
+
 
 
     </script>
