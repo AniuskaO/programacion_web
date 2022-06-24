@@ -37,17 +37,71 @@
                 <div class="col">
                     <h2 class="d-flex justify-content-center mb-3">Realizar Compra</h2>
                     <form id="procesar-pago" action="#" method="post">
-                        <div class="form-group row">
-                            <label for="cliente" class="col-12 col-md-2 col-form-label h2">Cliente :</label>
-                            <div class="col-12 col-md-10">
-                                <input type="text" class="form-control" id="cliente"
-                                    placeholder="Ingresa nombre cliente" name="destinatario">
+                        <div class="form-group row justify-content-center">
+                            <label for="rut" class="col-3 col-md-1 col-form-label h2">RUT</label>
+                            <div class="col-3 col-md-3">
+                                <input type="text" class="form-control" id="rut"
+                                    placeholder="Ingresa RUT" name="destinatario">
+                            </div>
+                            <label for="dv" class="col-3 col-md-1 col-form-label h2">DV</label>
+                            <div class="col-3 col-md-3">
+                                <input type="text" class="form-control" id="dv"
+                                    placeholder="Ingresa DV" name="dv">
                             </div>
                         </div>
-                        <div class="form-group row">
-                            <label for="email" class="col-12 col-md-2 col-form-label h2">Correo :</label>
-                            <div class="col-12 col-md-10">
-                                <input type="email" class="form-control" id="correo" placeholder="Ingresa tu correo" name="cc_to">
+                        <div class="form-group row justify-content-center">
+                            <label for="primerNombre" class="col-3 col-md-1 col-form-label h2">Primer Nombre</label>
+                            <div class="col-3 col-md-3">
+                                <input type="text" class="form-control" id="primerNombre"
+                                    placeholder="Ingresa primer nombre" name="primerNombre">
+                            </div>
+                            <label for="segundoNombre" class="col-3 col-md-1 col-form-label h2">Segundo Nombre</label>
+                            <div class="col-3 col-md-3">
+                                <input type="text" class="form-control" id="segundoNombre"
+                                    placeholder="Ingresa segundo nombre" name="segundoNombre">
+                            </div>
+                        </div>
+                        <div class="form-group row justify-content-center">
+                            <label for="PrimerApelldio" class="col-3 col-md-1 col-form-label h2">Primer Apellido</label>
+                            <div class="col-3 col-md-3">
+                                <input type="text" class="form-control" id="PrimerApelldio"
+                                    placeholder="Ingresa primer apellido" name="PrimerApelldio">
+                            </div>
+                            <label for="SegundoApelldio" class="col-3 col-md-1 col-form-label h2">Segundo Apellido</label>
+                            <div class="col-3 col-md-3">
+                                <input type="text" class="form-control" id="SegundoApelldio"
+                                    placeholder="Ingresa segundo apellido" name="SegundoApelldio">
+                            </div>
+                        </div>
+                        <div class="form-group row justify-content-center">
+                            <label for="direccion" class="col-3 col-md-1 col-form-label h2">Dirección</label>
+                            <div class="col-3 col-md-3">
+                                <input type="text" class="form-control" id="direccion"
+                                    placeholder="Ingresa dirección" name="direccion">
+                            </div>
+                            <label for="comuna" class="col-3 col-md-1 col-form-label h2">Comuna</label>
+                            <div class="col-3 col-md-3">
+                                <input type="text" class="form-control" id="comuna"
+                                    placeholder="Ingresa comuna" name="comuna">
+                            </div>
+                        </div>
+                        <div class="form-group row justify-content-center">
+                            <label for="region" class="col-3 col-md-1 col-form-label h2">Región</label>
+                            <div class="col-3 col-md-3">
+                                <input type="text" class="form-control" id="region"
+                                    placeholder="Ingresa región" name="region">
+                            </div>
+                            <label for="fono" class="col-3 col-md-1 col-form-label h2">Fono</label>
+                            <div class="col-3 col-md-3">
+                                <input type="text" class="form-control" id="fono"
+                                    placeholder="Ingresa fono" name="fono">
+                            </div>
+                        </div>
+                        <div class="form-group row justify-content-center">
+                            <label for="correo" class="col-6 col-md-1 col-form-label h2">Correo</label>
+                            <div class="col-6 col-md-6">
+                                <input type="text" class="form-control" id="correo"
+                                    placeholder="Ingresa correo" name="correo">
                             </div>
                         </div>
 
@@ -128,8 +182,8 @@
   <script src="js/bootstrap.min.js"></script>
   <script src="js/sweetalert2.min.js"></script>
 
-  <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/emailjs-com@2.3.2/dist/email.min.js"></script>
+<!-- <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+-->  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/emailjs-com@2.3.2/dist/email.min.js"></script>
 
   <script src="js/carrito.js"></script>
   <script src="js/compra.js"></script>
