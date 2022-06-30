@@ -105,9 +105,9 @@
           </div>
     </section>
 
-    <div class="container" id="lista-productos">
+    <!--<<div class="container" id="lista-productos">
             
-      <div class="card-deck mb-3 text-center">
+      div class="card-deck mb-3 text-center">
           
           <div class="card mb-4 shadow-sm">
               <div class="card-header">
@@ -215,11 +215,20 @@
               </div>
           </div>
 
-      </div>
+      </div> -->
+
+      <!-- Tienda Productos -->
+        <div class="container">
+          <h3 class="section-title text-center">Productos</h3>
+          <div class="row" id="lista-productos">
+  
+          </div>
+        </div>
 
 
 
-  </div>
+
+  <!--</div>-->
 
   <footer class="bg-light text-center text-white">
     <div class="text-center p-3" id="pie">
@@ -235,6 +244,58 @@
     <script src="js/sweetalert2.min.js"></script>
     <script src="js/carrito.js"></script>
     <script src="js/pedido.js"></script>
+
+    <script>
+
+    const API_URL = 'http://127.0.0.1:5000';
+
+    $(document).ready(function(){
+      getProductos();
+    });
+
+    addCardProducto = (id_producto, codigo, nombre, valor_venta, stock, descripcion, imagen, estado) => {
+    console.log(id_producto);
+    var card =  `<div class="col-md-4">
+                    <div class="card-header">
+                      <h4 class="my-0 font-weight-bold" id="nombre_producto">${nombre}</h4>
+                    </div>
+                    <div class="card-body">
+                      <img src="${imagen}" alt="Rounded Image" width="300" height="300" id="imagen_producto">
+                      <h1 class="card-title pricing-card-title precio">$ <span class=""> ${valor_venta}</span></h1>
+                          
+                          <ul class="list-unstyled mt-3 mb-4">
+                            <li></li>
+                            <li>${descripcion}</li>
+                          </ul>
+
+                          <a href="" class="btn btn-block btn-primary agregar-carrito" data-id="${id_producto}">Comprar</a>
+                    </div>
+                </div>`;
+    // agregar a cards_products
+    $("#lista-productos").append(card);
+  }
+
+  getProductos = () => {
+    $.ajax({
+      url: API_URL + '/productos',
+      type: 'GET',
+      dataType: 'json',
+      success: function(data) {
+        $.each(data, function(index, value) {
+
+          //html += '<option value="' + value.id + '">' + value.nombre + '</option>';
+
+          addCardProducto(value.id_producto, value.codigo, value.nombre, value.valor_venta, value.stock, value.descripcion, value.imagen);
+
+        });
+
+      }
+    });
+  }
+
+
+
+    </script>
 
   </body>
 </html>

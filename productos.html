@@ -87,15 +87,15 @@
                 </div>
               </div>
 
-              <div class="form-row">
-                <form action="../../form-result.php" method="post" enctype="multipart/form-data" target="_blank">
-                  <label for="inputImagen">Imagen</label>
-                  <input type="file" class="form-control" id="inputImagen">
-                </form>
 
+              <div class="custom-file">
+                <input type="file" class="custom-file-input" id="inputImagen" lang="es">
+                <label class="custom-file-label" for="inputImagen">Seleccionar imagen</label>
               </div>
 
-              <div class="form-row">
+              
+
+              <div class="form-row"></div>
                 <div class="btn" role="group" aria-label="Basic example">
                   <button type="button" class="btn btn-success" id="AñadirProducto">Añadir</button>
                   <button type="button" class="btn btn-warning" id="EditarProducto">Editar</button>
@@ -162,7 +162,7 @@
     <script>
 
     const API_URL = 'http://127.0.0.1:5000';
-
+    const ImagenProducto = 'C:/Users/anius/Desktop/proyecto/imagenes/'; 
     $(document).ready(function(){
       $('#tablaProductos tbody').empty();
       $('#EditarProducto').hide()
@@ -188,7 +188,8 @@
                   '<td>' + respuesta[i].valor_venta + '</td>' +
                   '<td>' + respuesta[i].stock + '</td>' +
                   '<td>' + respuesta[i].descripcion + '</td>' +
-                  '<td>' + respuesta[i].imagen + '</td>' +
+                  '<td> <img src="'+ respuesta[i].imagen +'" class="card-img-top"></td>' +
+                  //'<td>' + respuesta[i].imagen +'</td>' +
                   '<td>' + respuesta[i].estado + '</td>' +
                   '<td>' + 
                     '<div class="btn-group btn-group-sm" role="group" aria-label="Basic example">' +
@@ -218,7 +219,11 @@
         var stock = $('#inputStock').val();
         var descripcion = $('#inputDescripcion').val();
         var estado = $('#inputEstado').val();
+        var im = $('#inputImagen').val();
+        var imagen = ImagenProducto+(im.substring(12));
+        console.log(imagen);
 
+          
         //cargar a la db mediante ajax mi usuario
         $.ajax({
             url: API_URL+'/productos',
@@ -230,6 +235,7 @@
               valor_venta: valor_venta,
               stock: stock,
               descripcion: descripcion, 
+              imagen: imagen,
               estado: estado
             }),
             success: function(respuesta){
