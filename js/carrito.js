@@ -211,7 +211,7 @@ class Carrito {
             
         }
         
-        iva = parseFloat(total * 0.18).toFixed(2);
+        iva = parseFloat(total * 0.19).toFixed(2);
         subtotal = parseFloat(total-iva).toFixed(2);
 
         document.getElementById('subtotal').innerHTML = "$ " + subtotal;
@@ -231,7 +231,8 @@ class Carrito {
             productosLS.forEach(function (productoLS, index) {
                 if (productoLS.id_producto === id_producto) {
                     productoLS.cantidad = cantidad;                    
-                    actualizarMontos[index].innerHTML = Number(cantidad * productosLS[index].precio);
+                    actualizarMontos[index].innerHTML = Number(cantidad * productosLS[index].valor_venta);
+                    console.log()
                 }    
             });
             localStorage.setItem('productos', JSON.stringify(productosLS));
