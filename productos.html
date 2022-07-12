@@ -35,7 +35,8 @@
                   <a class="dropdown-item" href="productos.html">Productos</a>
                   <a class="dropdown-item" href="suscripciones.html">Suscripciones</a>
                   <a class="dropdown-item" href="donaciones.html">Donaciones</a>
-                  <a class="dropdown-item" href="vendedores.html">Vendedores</a>
+                  <!--<a class="dropdown-item" href="vendedores.html">Vendedores</a>-->
+                  <a class="dropdown-item" href="despachos.html">Despachos</a>
                 </div>
             </li>
             <li class="nav-item ">
@@ -210,9 +211,9 @@
 
       }
 
-      //añadir usuario a la lista con jquery
+      //añadir producto a la lista con jquery
       $(document).on('click', '#AñadirProducto', function(){
-        //obtener los datos del usuario
+        //obtener los datos del producto
         var codigo = $('#inputCodigo').val();
         var nombre = $('#inputNombre').val();
         var valor_venta = $('#inputValorVenta').val();
@@ -224,7 +225,7 @@
 
 
           
-        //cargar a la db mediante ajax mi usuario
+        //cargar a la db mediante ajax mi producto
         $.ajax({
             url: API_URL+'/productos',
             type: 'POST',
@@ -248,13 +249,13 @@
       });
 
 
-      //click en .btnEditarusuario
+      //click en .btnEditarproducto
       $(document).on('click', '.btnEditarProducto', function(){
-        //obtener el id del usuario
+        //obtener el id del producto
         var id_producto = $(this).closest('tr').find('th').text();
         //obtener todo el usuario
         var producto = $(this).closest('tr').find('td');
-        //obtener los datos del usuario
+        //obtener los datos del producto
         var codigo = producto.eq(0).text();
         var nombre = producto.eq(1).text();
         var valor_venta = producto.eq(2).text();
@@ -263,7 +264,7 @@
         var estado = producto.eq(6).text();
     
 
-        //mostrar los datos del usuario en los inputs
+        //mostrar los datos del producto en los inputs
         $('#inputCodigo').val(codigo);
         $('#inputNombre').val(nombre);
         $('#inputValorVenta').val(valor_venta);
@@ -293,7 +294,7 @@
 
       //editar usuario con ajax
       $(document).on('click', '#EditarProducto', function(){
-        //obtener los datos del usuario
+        //obtener los datos del producto
         var codigo = $('#inputCodigo').val();
         var nombre = $('#inputNombre').val();
         var valor_venta = $('#inputValorVenta').val();
@@ -326,7 +327,7 @@
 
       });
 
-      //borrar usuario de la lista con jquery
+      //borrar producto de la lista con jquery
       $(document).on('click', '.btnEliminarProducto', function(){
         //eliminar la fila
         var id_producto = $(this).closest('tr').find('th').text();

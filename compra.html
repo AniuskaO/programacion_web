@@ -155,14 +155,18 @@
                                 <a href="index.html" class="btn btn-info btn-block">Seguir comprando</a>
                             </div>
                             <div class="col-xs-12 col-md-4">
-                                <button href="#" class="btn btn-success btn-block" id="procesar-compra">Realizar compra</button>
+                                <button href="boleta.html" class="btn btn-success btn-block" id="procesar-compra">Realizar compra</button>
                             </div>
+                            
+        
                         </div>
+  
 
 
                        
                     </form>
 
+                    
 
                 </div>
 
@@ -171,10 +175,17 @@
 
         </div>
     </main>
+    <div class="text-center">
+        <div>
+            <a href="boleta.html" class="btn btn-success" id="botonBoleta">Boleta</a>
+        </div>
+
+    </div>
+    
     
 
   <footer class="bg-light text-center text-white">
-    <div class="text-center p-3" id="pie">
+    <div class="text-center p-3" id="pie-compra">
       © 2022 Copyright:
       <a class="text-white" href="https://mdbootstrap.com/"></a>tujardin.com
   </footer>
@@ -197,7 +208,10 @@
 
     $(document).ready(function(){
       cargarRegiones();
+      $('#botonBoleta').hide();
     });
+
+ 
 
     function cargarRegiones(){
     var xmlhttp = new XMLHttpRequest();
@@ -239,75 +253,6 @@ function cargarComunas(region_value) {
     };
 };
 
-$(document).on('click','#procesar-compra',function(){
-
-    var rut = $('#inputRut').val();
-    var dv = $('#inputDv').val();
-    var primer_nombre = $('#inputPrimerNombre').val();
-    var segundo_nombre = $('#inputSegundoNombre').val();
-    var primer_apellido = $('#inputPrimerApellido').val();
-    var segundo_apellido = $('#inputSegundoApellido').val();
-    var direccion = $('#inputDireccion').val();
-    var region_id = $('#InputRegion').val();
-    var comuna_id = $('#InputComuna').val();
-    var fono = $('#inputFono').val();
-    var correo = $('#inputCorreo').val();
-    var clave = '';
-    var nombre_recibe = primer_nombre + ' ' + primer_apellido + ' ' + segundo_apellido;
-    var estado_despacho = 'V';
-    var venta_id = 1;
-
-
-
-    $.ajax({
-            url: API_URL+'/clientes',
-            type: 'POST',
-            contentType: 'application/json',
-            data: JSON.stringify({
-              rut: rut,
-              dv: dv,
-              primer_nombre: primer_nombre,
-              segundo_nombre: segundo_nombre,
-              primer_apellido: primer_apellido,
-              segundo_apellido: segundo_apellido, 
-              direccion: direccion,
-              fono: fono,
-              correo: correo, 
-              comuna_id: comuna_id,
-              region_id: region_id, 
-              clave: clave
-            }),
-            success: function(respuesta){
-                console.log(respuesta);
-                actualizarTabla();
-                limpiarFormulario();
-            }
-        })
-
-        $.ajax({
-            url: API_URL+'/despachos',
-            type: 'POST',
-            contentType: 'application/json',
-            data: JSON.stringify({
-              direccion: direccion,
-              nombre_recibe: nombre_recibe,
-              estado_despacho: estado_despacho,
-              venta_id: venta_id, 
-              direccion: direccion,
-              comuna_id: comuna_id,
-              region_id: region_id, 
-              clave: clave
-            }),
-            success: function(respuesta){
-                console.log(respuesta);
-                actualizarTabla();
-                limpiarFormulario();
-            }
-        })
-
-});
-
-    
 
 
   </script>

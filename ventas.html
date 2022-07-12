@@ -35,7 +35,8 @@
                   <a class="dropdown-item" href="productos.html">Productos</a>
                   <a class="dropdown-item" href="suscripciones.html">Suscripciones</a>
                   <a class="dropdown-item" href="donaciones.html">Donaciones</a>
-                  <a class="dropdown-item" href="vendedores.html">Vendedores</a>
+                  <!--<a class="dropdown-item" href="vendedores.html">Vendedores</a>-->
+                  <a class="dropdown-item" href="despachos.html">Despachos</a>
                 </div>
             </li>
             <li class="nav-item ">
@@ -53,15 +54,14 @@
             <div class="card-body">
 
               <h5 class="card-title text-center">Listado de Ventas</h5>
-              <p>Cantidad de ventas: 1</p>
-              <p>Monto de ventas: 17.909</p>
+              <!--<p>Cantidad de ventas: 1</p>
+              <p>Monto de ventas: 17.909</p>-->
                 <div class="table-responsive">
                     <table class="table table-striped" id="tablaVentas">
                         <thead>
                         <tr>
                             <th scope="col">#</th>
                             <th scope="col">Fecha</th>
-                            <th scope="col">Descuento</th>
                             <th scope="col">Subtotal</th>
                             <th scope="col">Iva</th>
                             <th scope="col">Total</th>
@@ -121,7 +121,6 @@
                 var fila = '<tr>' +
                   '<th scope="row">' + respuesta[i].id_venta + '</th>' +
                   '<td>' + respuesta[i].fecha + '</td>' +
-                  '<td>' + respuesta[i].descuento + '</td>' +
                   '<td>' + respuesta[i].sub_total + '</td>' +
                   '<td>' + respuesta[i].iva + '</td>' +
                   '<td>' + respuesta[i].total + '</td>' +

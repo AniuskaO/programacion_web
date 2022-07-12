@@ -1,11 +1,10 @@
 const compra = new Carrito();
 const listaCompra = document.querySelector("#lista-compra tbody");
 const carrito = document.getElementById('carrito');
-//const procesarCompraBtn = document.getElementById('procesar-compra');
+const procesarCompraBtn = document.getElementById('procesar-compra');
 const cliente = document.getElementById('cliente');
 const correo = document.getElementById('correo');
-
-
+const listaBoleta = document.querySelector("#lista-boleta tbody");
 
 cargarEventos();
 
@@ -18,19 +17,17 @@ function cargarEventos() {
     compra.calcularTotal();
 
     //cuando se selecciona procesar Compra
-    //procesarCompraBtn.addEventListener('click', procesarCompra);
+    procesarCompraBtn.addEventListener('click', procesarCompra);
 
     carrito.addEventListener('change', (e) => { compra.obtenerEvento(e) });
     carrito.addEventListener('keyup', (e) => { compra.obtenerEvento(e) });
-
-
 }
 
 
 
 
 
-/*function procesarCompra() {
+function procesarCompra() {
     // e.preventDefault();
     if (compra.obtenerProductosLocalStorage().length === 0) {
         Swal.fire({
@@ -43,7 +40,9 @@ function cargarEventos() {
             window.location = "index.html";
         })
     }
-    else if (cliente.value === '' || correo.value === '') {
+
+
+    /*else if (cliente.value === '' || correo.value === '') {
         Swal.fire({
             type: 'error',
             title: 'Oops...',
@@ -57,7 +56,7 @@ function cargarEventos() {
         //aqui se coloca el user id generado en el emailJS
         (function () {
             emailjs.init("user_CEozz2F39lJJOLF5mJiDA");
-        })();
+        })();*/
 
         var myform = $("form#procesar-pago");
 
@@ -65,7 +64,7 @@ function cargarEventos() {
             event.preventDefault();
 
             // Change to your service ID, or keep using the default service
-            var service_id = "default_service";
+            /*var service_id = "default_service";
             var template_id = "template_3SA9LsqQ";
 
             const cargandoGif = document.querySelector('#cargando');
@@ -93,12 +92,11 @@ function cargarEventos() {
                     // myform.find("button").text("Send");
                 });
 
-            return false;
+            return false;*/
+
+
 
         });
 
     }
-}
-
-*/
 

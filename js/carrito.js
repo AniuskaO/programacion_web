@@ -1,3 +1,5 @@
+const compraBoleta = document.getElementById('#productos-boleta');
+
 class Carrito {
 
     //Añadir producto al carrito
@@ -130,6 +132,7 @@ class Carrito {
                 </td>
             `;
             listaProductos.appendChild(row);
+            
         });
     }
 
@@ -153,7 +156,9 @@ class Carrito {
                     <a href="#" class="borrar-producto fas fa-times-circle" style="font-size:30px" data-id="${producto.id_producto}"></a>
                 </td>
             `;
-            listaCompra.appendChild(row);
+            listaCompra.appendChild(row);            
+    
+            
         });
     }
 
@@ -180,6 +185,7 @@ class Carrito {
     //Eliminar todos los datos del LS
     vaciarLocalStorage(){
         localStorage.clear();
+ 
     }
 
     //Procesar pedido
@@ -217,6 +223,135 @@ class Carrito {
         document.getElementById('subtotal').innerHTML = "$ " + subtotal;
         document.getElementById('iva').innerHTML = "$ " + iva;
         document.getElementById('total').value = "$ " + total.toFixed(2);
+
+        $(document).on('click','#procesar-compra',function(){
+
+            $('#botonBoleta').show();
+
+            //var descuento= 0;
+            var sub_total = subtotal;
+            var totalV = total;
+            var ivaV = iva;
+            //var estado = "V";
+            //var cliente_id = 1;
+            //var vendedor_id = 1;
+            //var despacho_id = 1;
+
+            var rut = $('#inputRut').val();
+            var dv = $('#inputDv').val();
+            var primer_nombre = $('#inputPrimerNombre').val();
+            var segundo_nombre = $('#inputSegundoNombre').val();
+            var primer_apellido = $('#inputPrimerApellido').val();
+            var segundo_apellido = $('#inputSegundoApellido').val();
+            var direccion = $('#inputDireccion').val();
+            var region_id = $('#InputRegion').val();
+            var comuna_id = $('#InputComuna').val();
+            var fono = $('#inputFono').val();
+            var correo = $('#inputCorreo').val();
+            //var clave = '';
+            var nombre_recibe = primer_nombre + ' ' + primer_apellido;
+           // var estado_despacho = 'V';
+            //var venta_id = 1;
+            var rut_recibe = rut;
+
+            $.ajax({
+                url: API_URL+'/compra',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    rut: rut,
+                    dv: dv,
+                    primer_nombre: primer_nombre,
+                    segundo_nombre: segundo_nombre,
+                    primer_apellido: primer_apellido,
+                    segundo_apellido: segundo_apellido, 
+                    direccion: direccion,
+                    fono: fono,
+                    correo: correo, 
+                    comuna_id: comuna_id,
+                    sub_total: sub_total,
+                    iva: ivaV,
+                    total: totalV, 
+                    rut_recibe: rut_recibe,
+                    nombre_recibe: nombre_recibe
+
+                }),
+                success: function(respuesta){
+                    console.log(sub_total, iva, total);
+                }
+            })
+        
+            /*
+                $.ajax({
+                    url: API_URL+'/ventas',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({
+                        fecha: fecha,
+                        descuento: descuento,
+                        sub_total: sub_total,
+                        iva: ivaV,
+                        total: totalV,
+                        estado: estado, 
+                        cliente_id: cliente_id,
+                        vendedor_id: vendedor_id,
+                        despacho_id: despacho_id
+                    }),
+                    success: function(respuesta){
+                        console.log(respuesta);
+                    }
+                })
+
+                $.ajax({
+                    url: API_URL+'/clientes',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({
+                      rut: rut,
+                      dv: dv,
+                      primer_nombre: primer_nombre,
+                      segundo_nombre: segundo_nombre,
+                      primer_apellido: primer_apellido,
+                      segundo_apellido: segundo_apellido, 
+                      direccion: direccion,
+                      fono: fono,
+                      correo: correo, 
+                      comuna_id: comuna_id,
+                      region_id: region_id, 
+                      clave: clave
+                    }),
+                    success: function(respuesta){
+                        console.log(respuesta);
+                        actualizarTabla();
+                    }
+                })
+        
+                $.ajax({
+                    url: API_URL+'/despachos',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({
+                      direccion: direccion,
+                      nombre_recibe: nombre_recibe,
+                      estado_despacho: estado_despacho,
+                      venta_id: venta_id, 
+                      direccion: direccion,
+                      comuna_id: comuna_id,
+                      region_id: region_id, 
+                      clave: clave
+                    }),
+                    success: function(respuesta){
+                        console.log(respuesta);
+                        actualizarTabla();
+                    }
+                })
+
+            return false;
+            */
+        
+               
+        });
+       
     }
 
     obtenerEvento(e) {
@@ -243,3 +378,4 @@ class Carrito {
         }
     }
 }
+
